@@ -1,4 +1,4 @@
-#This project utilizes the following data:
+# This project utilizes the following data:
 
 CREATE TABLE superstore (
     item_id INTEGER PRIMARY KEY,
@@ -28,29 +28,29 @@ VALUES
     (15, 'Cozy Throw Blanket', 'Furnishings', 24.99, 100, 4.2);
     
     
-#For this project, I used SQL to query a database named Superstore to get information about items sold at this store.
-#The following prompts were asked by the course instructor and the queries were created solely by me.
+## For this project, I used SQL to query a database named Superstore to get information about items sold at this store.
+## The following prompts were asked by the course instructor and the queries were created solely by me.
 
-#Write a SQL query that orders the items by price.
+# Write a SQL query that orders the items by price.
 SELECT *
 FROM superstore
 ORDER BY price DESC;
 
-#Write your own SQL query that will show a statistic about the item prices, like a sum, average, minimum, maximum, or count.
-#This query shows the SUM of the prices by category from highest price to lowest.
+# Write your own SQL query that will show a statistic about the item prices, like a sum, average, minimum, maximum, or count.
+## This query shows the SUM of the prices by category from highest price to lowest.
 SELECT category, SUM(price)
 FROM superstore
 GROUP BY category
 ORDER BY price DESC;
 
-#Write your own SQL query that will show a statistic about the price for items in the category of "Kitchen Supplies".
-#This query shows the average price of Kitchen Supplies.
+# Write your own SQL query that will show a statistic about the price for items in the category of "Kitchen Supplies".
+## This query shows the average price of Kitchen Supplies.
 SELECT AVG(price) AS avg_kitchen_supply_price
 FROM superstore
 WHERE category="Kitchen Supplies";
 
-#Come up with your own question about the data and try to answer it using SQL
-#What are the top 3 best rated items sold in electronics?
+# Come up with your own question about the data and try to answer it using SQL
+## What are the top 3 best rated items sold in electronics?
 SELECT item_name, average_rating
 FROM superstore
 WHERE category="Electronics"
