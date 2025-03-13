@@ -58,7 +58,7 @@ VALUES
     ('Company JJ', 'Manufacturing', 370.0, 3100, 1, 20, 12, 7.6),
     ('Company KK', 'Healthcare', 150.2, 3400, 0, 16, 8, 5.3);
 
-# Analysis: 
+# The following analysis was made from questions I came up with: 
 
 --What is the average revenue of each industry? Sort in descending order and round to second decimal.
 SELECT industry, ROUND(AVG(revenue),2) AS avg_revenue
@@ -76,7 +76,7 @@ ORDER BY 2 DESC;
 --Label the companies in the Healthcare and Technology industry as Great, Good, OK, or Bad Benefits Rating. Use PTO and Healthcare benefits as determining factors.
 SELECT company_name, 
 CASE
-	WHEN healthcare_benefits=1 AND paid_time_off_days >=20 THEN "Great"
+    WHEN healthcare_benefits=1 AND paid_time_off_days >=20 THEN "Great"
     WHEN healthcare_benefits=0 AND paid_time_off_days >=20 THEN "Good"
     WHEN healthcare_benefits=1 AND paid_time_off_days >=15 THEN "OK"
     ELSE "Bad"
