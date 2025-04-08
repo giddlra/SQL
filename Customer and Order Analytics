@@ -1,0 +1,61 @@
+--In this SQL project, I'm querying a database containing multiple tables to analyze and generate statistics related to customer and order data.
+
+
+--How many many unique orders were placed in January? 
+--In other words, how many distinct order ids do we have?
+SELECT COUNT(distinct orderID)
+FROM BIT_DB.JanSales
+WHERE length(orderid) = 6
+AND orderid <> "Order ID";
+
+--How many of those orders were for an iPhone?
+SELECT COUNT(distinct orderID) AS iPhone_orders
+FROM BIT_DB.JanSales
+WHERE length(orderid) = 6
+AND orderid <> "Order ID"
+AND product = "iPhone"
+;
+
+--Select the customer account numbers for all the orders that were placed in February.
+SELECT distinct acctnum
+FROM BIT_DB.customers c
+INNER JOIN BIT_DB.FebSales feb
+ON feb.orderID = c.order_id
+WHERE length(orderid) = 6
+AND orderid <> "Order ID";
+
+--Which product was the cheapest one sold in January, and what was the price?
+SELECT distinct Product, MIN(price)
+FROM BIT_DB.JanSales
+WHERE price in (SELECT min(price) FROM BIT_DB.JanSales);
+
+--What is the total revenue for each product sold in January?
+SELECT product,
+ROUND(SUM(quantity)*price,2) AS revenue
+FROM BIT_DB.JanSales
+WHERE length(orderid) = 6
+AND orderid <> "Order ID"
+GROUP BY product;
+
+--Which products were sold in February at 548 Lincoln St, Seattle, WA 98101? 
+--How many of each were sold, and what was the total revenue?
+SELECT product,
+SUM(quantity), 
+ROUND(SUM(quantity)*price,2) AS revenue
+FROM BIT_DB.FebSales
+WHERE location = "548 Lincoln St, Seattle, WA 98101"
+AND length(orderid) = 6
+AND orderid <> "Order ID"
+GROUP BY product
+;
+
+--How many customers ordered more than 2 products at a time in February, 
+--and what was the average amount spent for those customers?
+SELECT COUNT(distinct c.acctnum) AS customer_amount, 
+ROUND(avg(quantity*price),2) AS amount_spent
+FROM BIT_DB.FebSales f
+JOIN BIT_DB.customers c
+ON f.orderID=c.order_id
+WHERE f.quantity>2
+AND length(f.orderid) = 6
+AND f.orderid <> "Order ID";
