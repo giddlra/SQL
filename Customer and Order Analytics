@@ -114,3 +114,16 @@ FROM JanSales
 GROUP BY 1
 ORDER BY 2 DESC
 LIMIT 1;
+
+--Show all orders made on 02/18/19 in Dallas, TX
+SELECT location 
+FROM FebSales
+WHERE orderdate LIKE '02/18/19%'
+AND location LIKE '%Dallas%';
+
+--Show all product sales and number of orders in Dallas between February 1st and February 10 in 2019
+SELECT product, COUNT(product) AS num_orders, (quantity*price) AS sales_amt
+FROM FebSales
+WHERE orderdate BETWEEN '02/01/19 00:00' AND '02/10/19 23:59'
+AND location LIKE '%Dallas%'
+GROUP BY 1;
