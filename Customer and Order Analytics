@@ -108,6 +108,18 @@ ON Feb.orderid = cust.order_id
 WHERE length(orderid) = 6 
 AND orderid <> 'Order ID';
 
+--Find order ids from Georgia (GA) where the order has an average price greater than $1,000. 
+--Only find orders from dates beginning with ‘04/1’. 
+--Assume that the dates are stored in the MM/DD/YY HH:MM format.
+SELECT orderid
+FROM AprSales
+WHERE orderdate LIKE'04/1%'
+AND location LIKE '%GA%'
+AND length(orderid) = 6
+AND orderid <> 'Order ID'
+Group by 1
+HAVING avg(price) > 1000;
+
 --Which product brought in the most revenue in January and how much revenue did it bring in total? 
 SELECT product, SUM(quantity*price) AS Product_Revenue
 FROM JanSales
