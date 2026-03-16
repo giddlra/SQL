@@ -1,0 +1,75 @@
+# Our Final Project for Break Into Tech involved a database from a digital media store database with 11 tables
+
+#1.
+--Show Customers (their full names, customer ID, and country) who are not in the US. (Hint: != or <> can be used to say "is not equal to").
+SELECT customerId, FirstName, LastName, Country
+FROM customers
+WHERE country != 'USA'
+;
+
+#2.
+--Show only the Customers from Brazil.
+SELECT customerId, FirstName, LastName, Country
+FROM customers
+WHERE country = 'Brazil';
+
+#3
+--Find the Invoices of customers who are from Brazil. The resulting table should show the customer's full name, Invoice ID, Date of the invoice, and billing country.
+SELECT c.FirstName, c.LastName, i.InvoiceId, i.InvoiceDate, i.BillingCountry
+FROM customers as c
+RIGHT JOIN invoices as i
+ON c.CustomerID = i.CustomerId
+WHERE i.BillingCountry = 'Brazil';
+
+#4
+--Show the Employees who are Sales Agents.
+SELECT * FROM employees
+WHERE Title LIKE '%Sales% %Agent%';
+
+#5
+--Find a unique/distinct list of billing countries from the Invoice table.
+SELECT DISTINCT(BillingCountry) FROM invoices;
+
+#6
+--Provide a query that shows the invoices associated with each sales agent. The resulting table should include the Sales Agent's full name.
+SELECT e.FirstName, e.LastName, i.InvoiceID
+FROM employees as e
+JOIN customers as c ON c.SupportRepId = e.EmployeeId
+JOIN invoices as i ON i.CustomerId = c.CustomerId;
+
+#7
+--Show the Invoice Total, Customer name, Country, and Sales Agent name for all invoices and customers.
+
+
+#8
+--How many Invoices were there in 2009?
+
+
+#9
+--What are the total sales for 2009?
+
+
+#10
+--Write a query that includes the purchased track name with each invoice line ID.
+
+
+#11
+--Write a query that includes the purchased track name AND artist name with each invoice line ID.
+
+
+#12
+--Provide a query that shows all the Tracks, and include the Album name, Media type, and Genre.
+
+
+#13
+--Show the total sales made by each sales agent.
+SELECT e.employeeid, e.FirstName, e.LastName, SUM(i.total) as TotalSales
+FROM employees as e
+JOIN customers as c ON c.SupportRepId = e.EmployeeId
+JOIN invoices as i ON i.CustomerId = c.CustomerId
+GROUP BY 1
+ORDER BY 4 DESC;
+
+
+#14
+--Which sales agent made the most dollars in sales in 2009?
